@@ -2,12 +2,9 @@ import Groq from "groq-sdk";
 import {ref, watchEffect} from "vue";
 import {useLocalStorage} from "@vueuse/core";
 
-interface Text {
-    key: string
-    text: string
-}
+
 const useAiGrammar = () => {
-    const keyStorage = useLocalStorage<Text[]>('keyStorage', [])
+    const keyStorage = useLocalStorage<any>('keyStorage', [])
 
     const groq = ref()
 
@@ -20,7 +17,7 @@ const useAiGrammar = () => {
 
     const grammar = ref('')
 
-    const textStorage = useLocalStorage<Text[]>('textlist', [])
+    const textStorage = useLocalStorage<any>('textlist', [])
 
     async function getGrammarByQroq(msg:string) {
         const completion = await groq.value.chat.completions.create({
@@ -37,8 +34,8 @@ const useAiGrammar = () => {
 
     function saveText(key: string, text: string) {
         // 更新已保存的文本
-        if (textStorage.value.some(item => item.key === key)) {
-            const index = textStorage.value.findIndex(item => item.key === key)
+        if (textStorage.value.some((item:any) => item.key === key)) {
+            const index = textStorage.value.findIndex((item:any) => item.key === key)
             textStorage.value[index].text = text
         }
         // 增加新的文本
@@ -51,11 +48,11 @@ const useAiGrammar = () => {
     }
 
     async function generateGrammar(keyText:string) {
-        const item = textStorage.value.find(item => item.key === keyText)
+        const item = textStorage.value.find((item:any) => item.key === keyText)
         if (!item){
             const tempText = await getGrammarByQroq(keyText)
             const splitText = tempText.split('\n')
-            const renderedText = splitText.map((line) => {
+            const renderedText = splitText.map((line:any) => {
                 return `<p>${line}</p>`
             }).join('')
             grammar.value = renderedText
