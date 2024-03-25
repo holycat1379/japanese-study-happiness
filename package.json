@@ -1,0 +1,28 @@
+{
+  "name": "language-study",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@iconify-json/carbon": "^1.1.31",
+    "@iconify/tailwind": "^0.1.4",
+    "@vueuse/core": "^10.9.0",
+    "autoprefixer": "^10.4.19",
+    "daisyui": "^4.7.3",
+    "groq-sdk": "^0.3.2",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-tsc": "^2.0.6"
+  }
+}
