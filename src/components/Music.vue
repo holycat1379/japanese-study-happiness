@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onKeyStroke,  useMediaControls} from '@vueuse/core'
+import {onKeyStroke, useLocalStorage, useMediaControls} from '@vueuse/core'
 import {nextTick, onBeforeMount, ref} from 'vue'
 import useAiGrammar from "../hooks/useAiGrammar.js";
 
@@ -108,6 +108,8 @@ function startScroll() {
 }
 
 const isShowMask = ref(false)
+const keyStorage = useLocalStorage<Text[]>('keyStorage', [])
+
 </script>
 
 <template>
@@ -161,11 +163,14 @@ const isShowMask = ref(false)
                 <span class="label-text">isShowMask：</span>
                 <input type="checkbox" class="toggle" :value="isShowMask" @change="isShowMask = !isShowMask" />
               </label>
+            <label class="label cursor-pointer">
+              <span class="label-text">keyStorage：</span>
+              <input v-model="keyStorage" />
+            </label>
             <button class="btn">Close</button>
           </form>
       </div>
     </dialog>
-
 
     <dialog id="my_modal_2" class="modal"  :open="isShowGrammar">
       <div class="bg-base-100 p-5 h-full desktop:w-2/5">

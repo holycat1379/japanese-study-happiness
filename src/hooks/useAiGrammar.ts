@@ -1,5 +1,5 @@
 import Groq from "groq-sdk";
-import {ref} from "vue";
+import {ref, watchEffect} from "vue";
 import {useLocalStorage} from "@vueuse/core";
 
 interface Text {
@@ -7,11 +7,16 @@ interface Text {
     text: string
 }
 const useAiGrammar = () => {
+    const keyStorage = useLocalStorage<Text[]>('keyStorage', [])
 
-    const groq = ref(new Groq({
-        apiKey: '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',
-        dangerouslyAllowBrowser: true,
-    }))
+    const groq = ref()
+
+    watchEffect(()=>{
+        groq.value = new Groq({
+            apiKey: keyStorage.value,
+            dangerouslyAllowBrowser: true,
+        })
+    })
 
     const grammar = ref('')
 
