@@ -17,20 +17,21 @@ const isMp3 = ref(false)
 
 const props = defineProps<{ path: string }>()
 
+const baseUrl = '/japanese-study-happiness'
 const { generateGrammar,grammar } =useAiGrammar()
 onBeforeMount(() => {
   const path = props.path
   lesson.value = {
-    media: `/japanese/${path}`,
+    media: `${baseUrl}/japanese/${path}`,
     vtt: '',
   }
   if (path.endsWith('.mp3')) {
     isMp3.value = true
-    lesson.value.vtt = `/japanese/${path.replace('.mp3', '.vtt')}`
+    lesson.value.vtt = `${baseUrl}/japanese/${path.replace('.mp3', '.vtt')}`
   }
   else {
     isMp3.value = false
-    lesson.value.vtt = `/japanese/${path.replace('.mp4', '.vtt')}`
+    lesson.value.vtt = `${baseUrl}/japanese/${path.replace('.mp4', '.vtt')}`
   }
   options.value = {
     src: lesson.value.media,
